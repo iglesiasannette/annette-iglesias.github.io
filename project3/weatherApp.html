@@ -67,25 +67,23 @@
         h1 {
             display: flex;
             justify-content: center;
-            font-family: ".Helvetica Neue DeskInterface";
+            font-family: "Gill Sans" ;
+            color: white;
+            font-weight: bold;
         }
 
         .typed {
-            color: #111111;
+            color: white;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<!--// main title //-->
-<!--<div class="title"> <h1>San Antonio Weather</h1></div>-->
-
-<div>
 
 
-
-    <div class="header"></div>
-    <h1><span class="typed"></span></h1>
+<div class="header"></div>
+<h1><span class="typed"></span></h1>
 </div>
 
 <div id="container">
@@ -93,33 +91,26 @@
     <div id="weatherbox" class="row">
 
     </div>
-</div>
 
+</div>
 
 
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.min.js'></script>
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.css' type='text/css' />
+
+
+
+
 <div id='map' style='width: 82.5%; height: 600px'></div>
-<form id="updateForecast">
-    <div class="row justify-content-center">
-        <div class="col-md-5" style='width: 40%'>
-            <input name="getLong" id ="getLon" type="text" class="form-control" placeholder="Longitude">
-        </div>
-        <div class="col-md-5" style='width: 40%'>
-            <input name= "getLat" id ="getLat" type="text" class="form-control" placeholder="Latitude">
-        </div>
-    </div>
-    </div>
-</form>
-<div class="row justify-content-center">
-    <button id="latLonBtn" type="submit" class="btn btn-primary justify-content-center" style='width: 81%;'>Search</button>
-</div>
+
+
+
 <div id='coordinates' class='coordinates'></div>
 
-<script src = "../js/keys.js"></script>
-<script src="../js/jquery-2.2.4.js"></script>
+<script src = "js/keys.js"></script>
+<script src="js/jquery-2.2.4.js"></script>
 
-<script src="../js/typed.js"></script>
+<script src="js/typed.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
@@ -140,85 +131,27 @@
         });
     });
 
-    ////// Ajax request for San Antonio Coordinates /////////
-
-    $.get('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + darkSkyKey + '/29.4241, -98.4936').done(function (data) {
-        console.log(data);
-
-
-        //// function to dynamically change the info on the page from the dark-sky API/////
-
-
-        var forecast = "";   /*assigned this variable name to refer to  the forecast function*/
-
-
-        for (var i = 0; i < 3; i++) {
-
-            var date = new Date(data.daily.data[i].time * 1000).toDateString();
-            var tempHi = Math.round(data.daily.data[i].apparentTemperatureHigh);
-            var tempLo = Math.round(data.daily.data[i].apparentTemperatureLow);
 
 
 
-            forecast += "<div class='col-lg-4 m-0 p-0'>";
-            forecast += '<div id="indWeatherBox' + [i] +'" class="card"><h4 class=\'my-0 font-weight-normal\'>';
-            forecast += '<div><p class="card-header text-center  bg-info font-weight-light text-white">' + date + '</p></div>';
-            forecast += "<ul class=\"list-group list-group-flush w-100 align-items-stretch\">";
-            forecast += '<li class="lead font-weight-light list-group-item text-center ">  ' + tempHi+ '&#176;/ ' + tempLo+ '&#176;</li>';
-            forecast += "<li class='list-group-item text-center \"'><img mx-auto src='" +imageStatus(arrayOfIcons, data.daily.data[i].icon)+ "'></li>";
-            forecast += '<li class="lead font-weight-light list-group-item text-center d-inline-block"">Over Cast: ' + data.daily.data[i].cloudCover + '</p>';
-            forecast += '<p class="lead font-weight-light">Humidity:  ' + data.daily.data[i].humidity + '</p>';
-            forecast += '<p class="lead font-weight-light">Winds:  ' + data.daily.data[i].windSpeed + ' mph</p>';
-            forecast += '<p class="lead font-weight-light">Pressure: ' + data.daily.data[i].pressure + '</p>';
-            // forecast += '<p class="card-text lead font-weight-light">' + data.daily.data[i].summary + '</p>';
-            forecast += '</ul>';
-            forecast += '</div>';
-            forecast += '</div>';
-            forecast += "</div>";
-        }
+    /////   Initialize variables for San Antonio Coordinates /////////
 
-        $('#weatherbox').html(forecast);
-
-    });
-
-    ///// Function to Display animated icons  //////
-
-    var arrayOfIcons = [
-
-        {status: "clear-day", graphic: '../images/animated/day.svg'},
-        {status: "clear-night", graphic: '../images/animated/night.svg'},
-        {status: 'rain', graphic: '../images/animated/rainy-7.svg'},
-        {status: 'snow', graphic: '../images/animated/snow.svg' },
-        {status: 'sleet', graphic: '../images/animated/SVG/Cloud-Snow.svg' },
-        {status: 'wind', graphic: '../images/animated/SVG/Wind.svg' },
-        {status: 'fog', graphic: '../images/animated/SVG/Cloud-Fog-Alt.svg' },
-        {status: 'cloudy', graphic: '../images/animated/cloudy.svg' },
-        {status: 'partly-cloudy-day', graphic: '../images/animated/cloudy.svg' },
-        {status: 'partly-cloudy-night', graphic: '../images/animated/cloudy-night-3.svg'}
-
-    ];
-
-    ///// function to display the icon ///
-    function imageStatus(arrayOfIcons, apiStatus){
-        for (var i = 0; i < arrayOfIcons.length; i++){
-            if(arrayOfIcons[i].status === apiStatus){
-                return arrayOfIcons[i].graphic;
-            }
-        }
-
-    }
+    var lat = 29.424;
+    var long = -98.4936;
 
 
+    updatedForecast();
 
-    ////// Updates the console log and information on the cells with the according weather /////
+    ////main function with Ajax request for San Antonio///
 
-    function updateWeather(inputLat, inputLon){
-        $.get('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + darkSkyKey + '/' + inputLat + "," + inputLon).done(function (data) {
+    function updatedForecast() {
+        $.get('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + darkSkyKey + "/" + lat + "," + long).done(function (data) {
             console.log(data);
 
-            //assigned this variable name to refer to  the forecast function
 
-            var forecast = "";
+
+
+            var forecast = "";   /*assigned this variable name to refer to  the forecast function*/
 
 
             for (var i = 0; i < 3; i++) {
@@ -229,11 +162,11 @@
 
 
                 forecast += "<div class='col-lg-4 m-0 p-0'>";
-                forecast += '<div id="indWeatherBox' + [i] +'" class="card"><h4 class=\'my-0 font-weight-normal\'>';
+                forecast += '<div id="indWeatherBox' + [i] + '" class="card"><h4 class=\'my-0 font-weight-normal\'>';
                 forecast += '<div><p class="card-header text-center  bg-info font-weight-light text-white">' + date + '</p></div>';
                 forecast += "<ul class=\"list-group list-group-flush w-100 align-items-stretch\">";
-                forecast += '<li class="lead font-weight-light list-group-item text-center ">  ' + tempHi+ '&#176;/ ' + tempLo+ '&#176;</li>';
-                forecast += "<li class='list-group-item text-center \"'><img mx-auto src='" +imageStatus(arrayOfIcons, data.daily.data[i].icon)+ "'></li>";
+                forecast += '<li class="lead font-weight-light list-group-item text-center ">  ' + tempHi + '&#176;/ ' + tempLo + '&#176;</li>';
+                forecast += "<li class='list-group-item text-center \"'><img mx-auto src='" + imageStatus(arrayOfIcons, data.daily.data[i].icon) + "'></li>";
                 forecast += '<li class="lead font-weight-light list-group-item text-center d-inline-block"">Over Cast: ' + data.daily.data[i].cloudCover + '</p>';
                 forecast += '<p class="lead font-weight-light">Humidity:  ' + data.daily.data[i].humidity + '</p>';
                 forecast += '<p class="lead font-weight-light">Winds:  ' + data.daily.data[i].windSpeed + ' mph</p>';
@@ -250,20 +183,41 @@
         });
     }
 
-    $('#latLonBtn').click(function(){
-        console.log("Button Clicked");
-
-        var getLon = $('#getLon').val();
-        var getLat = $('#getLat').val();
-
-        console.log(getLon);
-        console.log(getLat);
-
-        updateWeather(getLat, getLon);
-    });
 
 
-    ////////////////////// MAP and MARKER /////////////////////////
+    ///// Function to Display animated icons  //////
+
+    var arrayOfIcons = [
+
+        {status: "clear-day", graphic: 'icons/animated/day.svg'},
+        {status: "clear-night", graphic: 'icons/animated/night.svg'},
+        {status: 'rain', graphic: 'icons/animated/rainy-7.svg'},
+        {status: 'snow', graphic: 'icons/animated/snow.svg' },
+        {status: 'sleet', graphic: 'icons/SVG/Cloud-Snow.svg' },
+        {status: 'wind', graphic: 'icons/SVG/Wind.svg' },
+        {status: 'fog', graphic: 'icons/SVG/Cloud-Fog-Alt.svg' },
+        {status: 'cloudy', graphic: 'icons/animated/cloudy.svg' },
+        {status: 'partly-cloudy-day', graphic: 'icons/animated/cloudy.svg' },
+        {status: 'partly-cloudy-night', graphic: 'icons/animated/cloudy-night-3.svg'}
+
+    ];
+
+
+    /////////////// function to display the icon /////////////////
+
+
+    function imageStatus(arrayOfIcons, apiStatus){
+        for (var i = 0; i < arrayOfIcons.length; i++){
+            if(arrayOfIcons[i].status === apiStatus){
+                return arrayOfIcons[i].graphic;
+            }
+        }
+
+    }
+
+
+
+    ////////////////////// MAP, Geocoder and MARKERS /////////////////////////
 
 
     mapboxgl.accessToken = mapboxToken;
@@ -278,70 +232,29 @@
     var marker = new mapboxgl.Marker({
         draggable: true
     })
-        .setLngLat([-98.4916, 29.4252])
+        .setLngLat([-98.4936, 29.4241])
         .addTo(map);
+    marker.on('dragend', function () {
+        lat = marker.getLngLat().lat;
+        long = marker.getLngLat().lng;
+        updatedForecast();
+    });
 
 
-    map.addControl(new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-
-    }));
-
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxToken
+        // mapboxgl: mapboxgl
+    });
 
 
-
-    function onDragEnd() {
-        var lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
-
-        var latitude = lngLat.lat;
-        var longitude = lngLat.lng;
-
-
-        $.get('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + darkSkyKey + '/' + latitude + "," + longitude).done(function (data) {
-            console.log(data);
-
-            //assigned this variable name to refer to  the forecast function
-
-            var forecast = "";
-
-
-            for (var i = 0; i < 3; i++) {
-
-                var date = new Date(data.daily.data[i].time * 1000).toDateString();
-                var tempHi = Math.round(data.daily.data[i].apparentTemperatureHigh);
-                var tempLo = Math.round(data.daily.data[i].apparentTemperatureLow);
-
-
-                forecast += "<div class='col-lg-4 m-0 p-0'>";
-                forecast += '<div id="indWeatherBox' + [i] +'" class="card"><h4 class=\'my-0 font-weight-normal\'>';
-                forecast += '<div><p class="card-header text-center  bg-info font-weight-light text-white">' + date + '</p></div>';
-                forecast += "<ul class=\"list-group list-group-flush w-100 align-items-stretch\">";
-                forecast += '<li class="lead font-weight-light list-group-item text-center ">  ' + tempHi+ '&#176;/ ' + tempLo+ '&#176;</li>';
-                forecast += "<li class='list-group-item text-center \"'><img mx-auto src='" +imageStatus(arrayOfIcons, data.daily.data[i].icon)+ "'></li>";
-                forecast += '<li class="lead font-weight-light list-group-item text-center d-inline-block"">Over Cast: ' + data.daily.data[i].cloudCover + '</p>';
-                forecast += '<p class="lead font-weight-light">Humidity:  ' + data.daily.data[i].humidity + '</p>';
-                forecast += '<p class="lead font-weight-light">Winds:  ' + data.daily.data[i].windSpeed + ' mph</p>';
-                forecast += '<p class="lead font-weight-light">Pressure: ' + data.daily.data[i].pressure + '</p>';
-                // forecast += '<p class="card-text lead font-weight-light">' + data.daily.data[i].summary + '</p>';
-                forecast += '</ul>';
-                forecast += '</div>';
-                forecast += '</div>';
-                forecast += "</div>";
-            }
-
-            $('#weatherbox').html(forecast);
-
-        });
-
-    }
-
-
-    marker.on('dragend', onDragEnd);
-
-    onDragEnd();
+    map.addControl(geocoder);
+    geocoder.on('result', function(result) {
+        lat = result.result.center[1];
+        long = result.result.center[0];
+        marker.setLngLat([long, lat]);
+        $('h1').html(result.result.place_name);
+        updatedForecast();
+    });
 
 
 
