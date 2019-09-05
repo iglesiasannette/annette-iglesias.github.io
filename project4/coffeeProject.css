@@ -1,0 +1,64 @@
+/*table {*/
+/*    border-collapse: collapse;*/
+/*    margin: 15px 0;*/
+/*}*/
+
+/*td, th {*/
+/*    border: 1px solid black;*/
+/*    padding: 5px 10px;*/
+/*}*/
+
+
+main {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+
+
+
+}
+
+.header {
+        display: flex;
+        justify-content: center;
+}
+
+
+.menu {
+    grid-area: 2 / 1 / 4 / 2 ;
+    height: 100vh;
+    width: 675px;
+    margin-top: 30px;
+    padding: 30px;
+    position: relative;
+
+
+
+}
+
+.form1  {
+      grid-area: 2 / 2 / 3 / 4;
+        box-sizing: border-box;
+        margin-top: 30px;
+        position: center;
+    width: 289px;
+}
+
+
+.form2  {
+    grid-area: 3 / 2 / 4 / 4;
+    width: 289px;
+
+}
+
+#coffees {
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+
+}
+
+
+
+
+
